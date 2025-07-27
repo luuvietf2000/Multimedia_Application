@@ -1,0 +1,59 @@
+# ============================
+# 🔧 CMake-generated files
+# ============================
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+install_manifest.txt
+CTestTestfile.cmake
+Testing/
+build/
+*/build/
+*/build-*/
+
+# ============================
+# ⚙️ Compiled object files & executables
+# ============================
+*.o
+*.obj
+*.lo
+*.la
+*.al
+*.libs
+*.a
+*.lib
+*.so
+*.so.*
+*.dll
+*.exe
+*.out
+*.app
+
+# ============================
+# 🧠 Qt Creator & QML
+# ============================
+*.autosave
+*.user
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qmlproject.user
+*.qmlproject.user.*
+*.creator
+*.creator.*
+*.creator.user
+*.creator.user.*
+
+# ============================
+# 💥 Backup & OS junk files
+# ============================
+*~
+*.bak
+*.tmp
+*.log
+*.swp
+.DS_Store
+Thumbs.db
+
+

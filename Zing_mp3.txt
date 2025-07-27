@@ -1,0 +1,10 @@
+{
+    "Url": "https://zingmp3.vn",
+    "Version": "1.4.3",
+    "Secret_Key" : "2aa2d1c561e809b267f3638c4a307aab",
+    "Api_Key" : "88265e23d4284f25963e6eedac8fbfa3",
+    "Path_Home" : "/api/v2/page/get/home",
+    "Path_Search" : "/api/v2/search/multi",
+    "Path_Stream" : "/api/v2/song/get/streaming",
+    "Path_Info" : "/api/v2/song/get/info"
+}
