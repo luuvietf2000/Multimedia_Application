@@ -8,7 +8,7 @@ Window {
     width: 720
     height: 560
     visible: true
-    flags: Qt.FramelessWindowHint
+    flags: Qt.Window | Qt.FramelessWindowHint
     onHeightChanged: Parameter.height = height
     onWidthChanged:  Parameter.width = width
     color: "Transparent"
@@ -16,6 +16,9 @@ Window {
     Component.onCompleted: function(){
         Parameter.height = height
         Parameter.width = width
+
+        window.raise()
+        window.requestActivate()
     }
     Connections{
         target: Parameter

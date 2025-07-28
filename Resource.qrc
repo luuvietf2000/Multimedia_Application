@@ -55,5 +55,6 @@
         <file>image/hourglass.png</file>
         <file>image/map-pin.png</file>
         <file>image/error.png</file>
+        <file>icon.ico</file>
     </qresource>
 </RCC>

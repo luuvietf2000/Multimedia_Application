@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     QQuickStyle::setStyle("Material");
+    app.setWindowIcon(QIcon(":/icon.ico"));
 
     QQmlApplicationEngine engine;
     ModelPlayList *playlist =  new ModelPlayList();

@@ -50,6 +50,7 @@ qt_add_qml_module(appDisplay_Application
         QML_FILES MapItem.qml
         QML_FILES RoadDetail.qml
         QML_FILES TextStyleRoad.qml
+        RESOURCES
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
