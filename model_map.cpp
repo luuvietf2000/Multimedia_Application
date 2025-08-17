@@ -10,7 +10,6 @@ Model_Map::Model_Map(QObject *parent)
 
 Model_Map::~Model_Map()
 {
-
 }
 
 void Model_Map::requestSearchItem(const int &item, const QString &keyword)

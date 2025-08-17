@@ -56,5 +56,8 @@
         <file>image/map-pin.png</file>
         <file>image/error.png</file>
         <file>icon.ico</file>
+        <file>image/watch-speed.svg</file>
+        <file>image/home.png</file>
+        <file>image/arrow.svg</file>
     </qresource>
 </RCC>

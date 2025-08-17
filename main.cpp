@@ -6,6 +6,8 @@
 #include "parameter.h"
 #include "model_map.h"
 #include "api_osmmap.h"
+#include "uartviewmodel.h"
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -22,6 +24,9 @@ int main(int argc, char *argv[])
     Model_Map *map = new Model_Map();
     qmlRegisterSingletonInstance("com.resource.map", 1, 0, "ModelMap", map);
 
+    UartViewModel *uartViewModel = new UartViewModel();
+    qmlRegisterSingletonInstance("com.resource.uart", 1, 0, "Uart", uartViewModel);
+
     QObject::connect(
         &engine,
         &QQmlApplicationEngine::objectCreationFailed,
@@ -31,8 +36,9 @@ int main(int argc, char *argv[])
     engine.loadFromModule("Display_Application", "Main");
 
     int quit = app.exec();
-    playlist->deleteLater();
-    parameter->deleteLater();
-    map->deleteLater();
+    delete uartViewModel;
+    delete playlist;
+    delete parameter;
+    delete map;
     return quit;
 }

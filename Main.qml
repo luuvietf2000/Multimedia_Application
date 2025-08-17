@@ -52,7 +52,7 @@ Window {
                     id:stackview
                     width_size:  item.width
                     height_size: item.height
-                    componentList: [music, map, remote, live, setting]
+                    componentList: [music, map, home, remote, live, setting]
                 }
             }
             NavigationBar{
@@ -83,6 +83,13 @@ Window {
     Component{
         id: map
         MapComponent{
+            width_Content: window.width
+            height_Content: item.height
+        }
+    }
+    Component{
+        id: home
+        Home{
             width_Content: window.width
             height_Content: item.height
         }
