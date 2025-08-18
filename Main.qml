@@ -52,7 +52,7 @@ Window {
                     id:stackview
                     width_size:  item.width
                     height_size: item.height
-                    componentList: [music, map, home, remote, live, setting]
+                    componentList: [music, map, home, game, remote, live, setting]
                 }
             }
             NavigationBar{
@@ -95,12 +95,22 @@ Window {
         }
     }
     Component{
+        id: game
+        Game{
+            width_Content: window.width
+            height_Content: item.height
+        }
+    }
+    Component{
         id: remote
         Remote{}
     }
     Component{
         id: setting
-        Setting{}
+        Setting{
+            width_Content: window.width
+            height_Content: item.height
+        }
     }
     Component{
         id: live

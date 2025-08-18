@@ -57,6 +57,9 @@ Item {
             resource: "qrc:/image/home.png"
         }
         ListElement{
+            resource: "qrc:/image/game.png"
+        }
+        ListElement{
             resource: "qrc:/image/remote.png"
         }
         ListElement{
