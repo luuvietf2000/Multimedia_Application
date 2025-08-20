@@ -5,22 +5,11 @@ Item {
     id: root
     property int width_size
     property int height_size
+    property var listModel
     width: width_size
     height: height_size
-    signal changedMode(int mode)
+    signal selectionMode(string mode)
 
-    ListModel{
-        id: listMode
-        ListElement{
-            name: "Player Vs Cpu"
-        }
-        ListElement{
-            name: "Player Vs Player"
-        }
-        ListElement{
-            name: "Exit"
-        }
-    }
     Rectangle{
         anchors.fill: parent
         radius: 5
@@ -77,7 +66,7 @@ Item {
             }
             MouseArea{
                 anchors.fill: parent
-                onClicked: console.log(model.name)
+                onClicked: selectionMode(model.name)
             }
         }
     }

@@ -8,6 +8,7 @@ Item {
     property var listModel
     property int height_Content
     property int width_Content
+    readonly property int indexMainMenu: 0
     width: parent.width
     height: parent.height
     Rectangle{
@@ -33,6 +34,10 @@ Item {
         CaroGame{
             width_size: rec.width
             height_size: rec.height
+            onExitGame: {
+                console.log("exit game event")
+                stack.handleItemChanged(indexMainMenu)
+            }
         }
     }
     Component{

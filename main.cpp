@@ -7,6 +7,7 @@
 #include "model_map.h"
 #include "api_osmmap.h"
 #include "uartviewmodel.h"
+#include "caroviewmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -27,6 +28,9 @@ int main(int argc, char *argv[])
     UartViewModel *uartViewModel = new UartViewModel();
     qmlRegisterSingletonInstance("com.resource.uart", 1, 0, "Uart", uartViewModel);
 
+    CaroViewModel *caroViewModel = new CaroViewModel();
+    qmlRegisterSingletonInstance("com.resource.caro", 1, 0, "Caro", caroViewModel);
+
     QObject::connect(
         &engine,
         &QQmlApplicationEngine::objectCreationFailed,
@@ -40,5 +44,6 @@ int main(int argc, char *argv[])
     delete playlist;
     delete parameter;
     delete map;
+    delete caroViewModel;
     return quit;
 }

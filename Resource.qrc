@@ -56,13 +56,15 @@
         <file>image/map-pin.png</file>
         <file>image/error.png</file>
         <file>icon.ico</file>
-        <file>image/watch-speed.svg</file>
         <file>image/home.png</file>
-        <file>image/arrow.svg</file>
         <file>image/gamePlaylist.png</file>
         <file>image/caro.png</file>
         <file>image/game.png</file>
-        <file>image/dddepth-029.jpg</file>
         <file>font/PressStart2P-Regular.ttf</file>
+        <file>image/bot.png</file>
+        <file>image/user.png</file>
+        <file>image/alphabet.png</file>
+        <file>image/vs.png</file>
+        <file>image/letter-o.png</file>
     </qresource>
 </RCC>
