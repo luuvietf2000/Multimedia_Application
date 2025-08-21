@@ -11,39 +11,6 @@
 using std::string;
 using std::function;
 
-enum playlistInfo{
-    song = Qt::UserRole + 1,
-    author,
-    id,
-    downloadMode,
-    streamingStatus,
-    resource
-};
-enum resource{
-    ZingMp3,
-    Local
-};
-
-enum nextState{
-    loopOneSong,
-    loopAllSong,
-    randomSong
-};
-enum stateHandleRequest{
-    None,
-    requestSearch,
-    requestReadLocal,
-    requestHome
-};
-struct itemPlaylist{
-    QString song;
-    QString author;
-    QString id;
-    int downloadMode;
-    QString resource;
-    int streamingStatus;
-};
-
 class ModelPlayList : public QAbstractListModel
 {
     Q_OBJECT
@@ -61,6 +28,39 @@ class ModelPlayList : public QAbstractListModel
     Q_PROPERTY(int volume READ volume WRITE setVolume NOTIFY volumeChanged FINAL)
 
 public:
+
+    enum playlistInfo{
+        song = Qt::UserRole + 1,
+        author,
+        id,
+        downloadMode,
+        streamingStatus,
+        resource
+    };
+    enum resource{
+        ZingMp3,
+        Local
+    };
+
+    enum nextState{
+        loopOneSong,
+        loopAllSong,
+        randomSong
+    };
+    enum stateHandleRequest{
+        None,
+        requestSearch,
+        requestReadLocal,
+        requestHome
+    };
+    struct itemPlaylist{
+        QString song;
+        QString author;
+        QString id;
+        int downloadMode;
+        QString resource;
+        int streamingStatus;
+    };
     explicit ModelPlayList(QObject *parent = nullptr);
     QString Image() const;
     void setImage(const QString &image);

@@ -17,7 +17,6 @@ Item {
     height: height_size
 
     onBoardCaroChanged: {
-        console.log(boardCaro)
         canvas.requestPaint()
     }
     FontLoader{

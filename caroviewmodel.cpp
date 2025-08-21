@@ -14,7 +14,11 @@ void CaroViewModel::setPixelBoard(const int &x, const int &y)
 {
     if(m_board[x][y] != NotExist)
         return;
-    m_board[x][y] = getPixel();
+    int value = getPixel();
+    m_board[x][y] = value;
+    check.setPixel(x, y, value);
+    if(m_modeGame == playerVSComputer)
+        qDebug() << "handle";
     emit boardChanged();
 }
 
@@ -30,8 +34,6 @@ QVariantList CaroViewModel::board() const
     }
     return map;
 }
-
-
 
 int CaroViewModel::maxLine() const
 {
@@ -56,6 +58,7 @@ void CaroViewModel::setBoardDefault()
         new_board.append(new_row);
     }
     m_board = new_board;
+    check.setEdge(m_maxLine);
     emit boardChanged();
 }
 

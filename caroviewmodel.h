@@ -5,34 +5,36 @@
 #include <QVariant>
 #include <QVariantList>
 #include <QVector>
+#include "carowinchecker.h"
 
-enum mapCaro{
-    NotExist,
-    X,
-    O
-};
-enum turn{
-    turnOne,
-    turnTwo
-};
-enum caroMode{
-    playerVSComputer,
-    playerVsPlayer,
-    NoneMode
-};
 class CaroViewModel : public QObject
 {
     Q_OBJECT
-public:
-    explicit CaroViewModel(QObject *parent = nullptr);
     Q_PROPERTY(int maxLine READ maxLine WRITE setMaxLine NOTIFY maxLineChanged FINAL)
     Q_PROPERTY(QVariantList board READ board NOTIFY boardChanged FINAL)
     Q_PROPERTY(QVariantList player READ player WRITE setPlayer NOTIFY playerChanged FINAL)
     Q_PROPERTY(int turn READ turn WRITE setTurn NOTIFY turnChanged FINAL)
     Q_PROPERTY(int modeGame READ modeGame WRITE setModeGame NOTIFY modeGameChanged FINAL)
+public:
+    enum mapCaro{
+        NotExist,
+        X,
+        O
+    };
+    enum turn{
+        turnOne,
+        turnTwo
+    };
+    enum caroMode{
+        playerVSComputer,
+        playerVsPlayer,
+        NoneMode
+    };
     Q_INVOKABLE void setPixelBoard(const int &x, const int &y);
     Q_INVOKABLE void setBoardDefault();
     Q_INVOKABLE void requestRetry();
+
+    explicit CaroViewModel(QObject *parent = nullptr);
     QVariantList board() const;
 
     int maxLine() const;
@@ -55,6 +57,7 @@ signals:
     void playerChanged();
 
 private:
+    CaroWinChecker check;
     int getPixel();
     QVector<QVector<int>> m_board;
     int m_maxLine;
