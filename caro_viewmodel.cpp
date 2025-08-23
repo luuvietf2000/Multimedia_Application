@@ -1,4 +1,4 @@
-#include "caroviewmodel.h"
+#include "caro_viewmodel.h"
 #include <QRandomGenerator>
 
 CaroViewModel::CaroViewModel(QObject *parent)
@@ -7,6 +7,7 @@ CaroViewModel::CaroViewModel(QObject *parent)
     setMaxLine(21);
     setBoardDefault();
     m_turn = turnOne;
+    setPlayerWinner(NoneTurn);
     m_modeGame = NoneMode;
 }
 
@@ -14,11 +15,15 @@ void CaroViewModel::setPixelBoard(const int &x, const int &y)
 {
     if(m_board[x][y] != NotExist)
         return;
+    int current_turn = turn();
     int value = getPixel();
     m_board[x][y] = value;
-    check.setPixel(x, y, value);
+    point start, end;
     if(m_modeGame == playerVSComputer)
         qDebug() << "handle";
+    bool isWin = check.setPixel(x, y, value, start, end);
+    if(isWin)
+        setWinner(current_turn, start, end);
     emit boardChanged();
 }
 
@@ -64,8 +69,10 @@ void CaroViewModel::setBoardDefault()
 
 void CaroViewModel::requestRetry()
 {
-    setBoardDefault();
     setTurn(turnOne);
+    setPlayerWinner(NoneTurn);
+    setBoardDefault();
+    check.createBoard();
 }
 
 QVariantList CaroViewModel::setInfoPlayer()
@@ -155,4 +162,47 @@ int CaroViewModel::getPixel()
     int value = m_turn == turnOne ? X : O;
     setTurn(m_turn == turnOne ? turnTwo : turnOne);
     return value;
+}
+
+QVariantList CaroViewModel::pointLineWinner() const
+{
+    return m_pointLineWinner;
+}
+
+void CaroViewModel::setPointLineWinner(const QVariantList &newPointLineWinner)
+{
+    if (m_pointLineWinner == newPointLineWinner)
+        return;
+    m_pointLineWinner = newPointLineWinner;
+    emit pointLineWinnerChanged();
+}
+
+int CaroViewModel::playerWinner() const
+{
+    return m_playerWinner;
+}
+
+void CaroViewModel::setPlayerWinner(int newPlayerWinner)
+{
+    if (m_playerWinner == newPlayerWinner)
+        return;
+    m_playerWinner = newPlayerWinner;
+    emit playerWinnerChanged();
+}
+
+void CaroViewModel::setWinner(int &_turn, point &start, point &end)
+{
+    setPlayerWinner(_turn);
+    QVariantList list;
+    QVariantMap map;
+    map["x"] = start.x;
+    map["y"] = start.y;
+    QVariant variant(map);
+    list.append(map);
+    map["x"] = end.x;
+    map["y"] = end.y;
+    variant = QVariant(map);
+    list.append(variant);
+    setPointLineWinner(list);
+    emit boardChanged();
 }

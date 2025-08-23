@@ -45,10 +45,11 @@ Item {
                         for(var i = 0; i < maxLineCaro + 1; i++){
                             var xline = getCellSize(edge_size) * i
                             var yline = 0
-                            drawLine(ctx, xline, yline, xline, edge_size)
-                            drawLine(ctx, yline, xline, edge_size, xline)
+                            drawLine(ctx, xline, yline, xline, edge_size, 1, "black")
+                            drawLine(ctx, yline, xline, edge_size, xline, 1, "black")
                         }
                         drawAllCell(ctx)
+                        drawLineWinner(ctx)
                     }
                 }
                 MouseArea{
@@ -57,7 +58,8 @@ Item {
                     height: canvas.edge_size
                     anchors.centerIn: parent
                     onClicked: {
-                        if(mouseX % canvas.edge_size !== 0 && mouseY % canvas.edge_size){
+                        console.log("clicked")
+                        if(Caro.playerWinner === Caro.NoneTurn && mouseX % canvas.edge_size !== 0 && mouseY % canvas.edge_size){
                             var x = Math.floor(mouseX / getCellSize(canvas.edge_size))
                             var y = Math.floor(mouseY / getCellSize(canvas.edge_size))
                             Caro.setPixelBoard(x, y)
@@ -70,6 +72,21 @@ Item {
             }
         }
     }
+    function drawLineWinner(ctx){
+        if(Caro.playerWinner === Caro.NoneTurn)
+            return
+        var pointerWinner = Caro.pointLineWinner
+        var range = getCellSize(canvas.edge_size)
+        var cx1 = range * (pointerWinner[0].x + 0.5)
+        var cy1 = range * (pointerWinner[0].y + 0.5)
+        var cx2 = range * (pointerWinner[1].x + 0.5)
+        var cy2 = range * (pointerWinner[1].y + 0.5)
+        ctx.save()
+
+        var colorLine = !Caro.playerWinner ? "red" : "blue"
+        drawLine(ctx, cx1, cy1, cx2, cy2, 5, colorLine)
+        ctx.restore()
+    }
     function drawAllCell(ctx){
         for(var x = 0; x < maxLineCaro; x++)
             for(var y = 0; y < maxLineCaro; y++)
@@ -78,11 +95,13 @@ Item {
     function getCellSize(edge){
         return edge / maxLineCaro
     }
-    function drawLine(ctx, x1, y1, x2, y2){
+    function drawLine(ctx, x1, y1, x2, y2, width, colorLine){
         ctx.save()
+        ctx.beginPath()
         ctx.moveTo(x1, y1)
         ctx.lineTo(x2, y2)
-        ctx.lineWidth = 1
+        ctx.lineWidth = width
+        ctx.strokeStyle = colorLine
         ctx.stroke()
         ctx.restore()
     }
@@ -158,28 +177,35 @@ Item {
                 anchors.centerIn: parent
                 id: layout
                 spacing: 20
-                RowLayout{
-                    Text{
-                        id: textTitle
-                        Layout.preferredWidth: contentWidth
-                        font.pixelSize: 14
-                        text: titleTurn
-                        font.family: fontGame.name
-                    }
-                    Image{
-                        Layout.preferredHeight: textTitle.contentHeight
-                        Layout.preferredWidth:  textTitle.contentHeight
-                        fillMode: Image.PreserveAspectCrop
-                        source: !Caro.turn ? "qrc:/image/back.png" : "qrc:/image/letter-o.png"
-                    }
-                    Text{
-                        id: titlePlayer
-                        text: playerInfomation[Caro.turn].name
-                        font.pixelSize: 14
-                        font.family: fontGame.name
+
+                Loader{
+                    id: loaderTurn
+                    sourceComponent: headerComponent
+                    onLoaded: {
+                        loaderTurn.item.title = titleTurn
+                        loaderTurn.item.turn = Qt.binding(function(){
+                            return !Caro.turn
+                        })
+                        loaderTurn.item.namePlayer = Qt.binding(function(){
+                            return Caro.player[Caro.turn].name
+                        })
                     }
                 }
-
+                Loader{
+                    id: loaderWinner
+                    property string name: Caro.player === undefined || Caro.playerWinner === Caro.NoneTurn || Caro.player[Caro.playerWinner] === undefined ? null :  Caro.player[Caro.playerWinner].name
+                    visible: Caro.playerWinner !== Caro.NoneTurn
+                    sourceComponent: headerComponent
+                    onLoaded: {
+                        loaderWinner.item.title = "Win:  "
+                        loaderWinner.item.namePlayer = Qt.binding(function(){
+                            return name
+                        })
+                        loaderWinner.item.turn = Qt.binding(function(){
+                            return !Caro.playerWinner
+                        })
+                    }
+                }
                 RowLayout{
                     id: row
                     readonly property int pixel_size: 60
@@ -258,6 +284,37 @@ Item {
                     }
                 }
 
+            }
+        }
+    }
+    Component{
+        id: headerComponent
+        RowLayout{
+            property string title
+            property string namePlayer
+            property bool turn
+            Text{
+                id: textTitle
+                Layout.preferredWidth: contentWidth
+                font.pixelSize: 14
+                text: title
+                font.family: fontGame.name
+            }
+            Item {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+            }
+            Image{
+                Layout.preferredHeight: textTitle.contentHeight
+                Layout.preferredWidth:  textTitle.contentHeight
+                fillMode: Image.PreserveAspectCrop
+                source: turn ? "qrc:/image/back.png" : "qrc:/image/letter-o.png"
+            }
+            Text{
+                id: titlePlayer
+                text: namePlayer
+                font.pixelSize: 14
+                font.family: fontGame.name
             }
         }
     }

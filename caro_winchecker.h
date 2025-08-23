@@ -1,5 +1,5 @@
-#ifndef CAROWINCHECKER_H
-#define CAROWINCHECKER_H
+#ifndef CARO_WINCHECKER_H
+#define CARO_WINCHECKER_H
 
 #include <QObject>
 #include <QVector>
@@ -32,20 +32,20 @@ class CaroWinChecker : public QObject
     Q_OBJECT
 public:
     explicit CaroWinChecker(QObject *parent = nullptr);
-    inline static int dx[] = {-1, 0, 1, -1, 1, -1, 0, 1};
-    inline static int dy[] = {-1, -1, -1, 0, 0, 1, 1, 1};
     void setEdge(const int &size);
-    bool setPixel(const int &x, const int &y, int &value);
-signals:
-private:
     int calculatorRange(const int &x1, const int &y1, const int &x2, const int &y2);
-    void updateLine(const int &x1, const int &y1, const int &x2, const int &y2, int &line, const int &index);
+    bool setPixel(const int &x, const int &y, int &value, point &start, point &end);
     bool checkPointValid(const int &x, const int &y);
     void createBoard();
+signals:
+private:
+    inline static int dx[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+    inline static int dy[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+    void updateLine(const int &x1, const int &y1, const int &x2, const int &y2, int &line, const int &index);
     int abs(const int &x, const int &y);
     point start, end;
     QVector<QVector<pointCaro>> board;
     int edge;
 };
 
-#endif // CAROWINCHECKER_H
+#endif // CARO_WINCHECKER_H

@@ -1,5 +1,5 @@
-#ifndef UARTVIEWMODEL_H
-#define UARTVIEWMODEL_H
+#ifndef UART_VIEWMODEL_H
+#define UART_VIEWMODEL_H
 
 #include <QObject>
 #include "uart.h"
@@ -33,4 +33,4 @@ public slots:
     void readyRead(QByteArray byteArray);
 };
 
-#endif // UARTVIEWMODEL_H
+#endif // UART_VIEWMODEL_H

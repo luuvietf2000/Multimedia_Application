@@ -1,4 +1,4 @@
-#include "uartviewmodel.h"
+#include "uart_viewmodel.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>

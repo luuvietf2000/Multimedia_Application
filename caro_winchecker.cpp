@@ -1,5 +1,5 @@
-#include "carowinchecker.h"
-#include "caroviewmodel.h"
+#include "caro_winchecker.h"
+#include "caro_viewmodel.h"
 
 CaroWinChecker::CaroWinChecker(QObject *parent)
     : QObject{parent}
@@ -11,7 +11,7 @@ void CaroWinChecker::setEdge(const int &size)
     createBoard();
 }
 
-bool CaroWinChecker::setPixel(const int &x, const int &y, int &value)
+bool CaroWinChecker::setPixel(const int &x, const int &y, int &value, point &start, point &end)
 {
     int line = 7;
     bool result = false;
@@ -25,7 +25,12 @@ bool CaroWinChecker::setPixel(const int &x, const int &y, int &value)
                 updateLine(x, y, cx, cy, line, i);
                 point endLine = board[x][y].EndLinePoint[i];
                 updateLine(endLine.x, endLine.y, x, y, line, line - i);
-                qDebug() << "range" << calculatorRange(x, y, endLine.x, endLine.y);
+                int range = calculatorRange(x, y, endLine.x, endLine.y);
+                if(range > 4){
+                    start = point(x, y);
+                    end = endLine;
+                    return true;
+                }
             }
         }
     }
@@ -47,8 +52,12 @@ bool CaroWinChecker::setPixel(const int &x, const int &y, int &value)
                 updateLine(cx1, cy1, cx2, cy2, line, line - i);
 
                 //int range =  abs(cx1, cx2) + (cy1 == cy2 || cx1 == cx2 ? 0 : abs(cy1, cy2));
-                qDebug() << "range" << calculatorRange(cx1, cy1, cx2, cy2);
-                // check winner
+                int range = calculatorRange(cx1, cy1, cx2, cy2);
+                if(range > 4){
+                    start = point(cx1, cy1);
+                    end = point(cx2, cy2);
+                    return true;
+                }
             }
         }
     }
@@ -57,6 +66,10 @@ bool CaroWinChecker::setPixel(const int &x, const int &y, int &value)
 
 int CaroWinChecker::calculatorRange(const int &x1, const int &y1, const int &x2, const int &y2)
 {
+    if(x1 != x2)
+        return abs(x1, x2) + 1;
+    else
+        return abs(y1, y2) + 1;
     int range =  abs(x1, x2) + (y1 == y2 || x1 == x2 ? 0 : abs(y1, y2));
     return range + 1;
 }

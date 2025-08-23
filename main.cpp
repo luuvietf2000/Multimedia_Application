@@ -6,8 +6,8 @@
 #include "parameter.h"
 #include "model_map.h"
 #include "api_osmmap.h"
-#include "uartviewmodel.h"
-#include "caroviewmodel.h"
+#include "uart_viewmodel.h"
+#include "caro_viewmodel.h"
 
 int main(int argc, char *argv[])
 {

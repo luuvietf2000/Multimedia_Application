@@ -55,14 +55,15 @@ qt_add_qml_module(appDisplay_Application
         QML_FILES WatchSpeedComponent.qml
         QML_FILES PowerComponent.qml
         SOURCES uart.h uart.cpp
-        SOURCES uartviewmodel.h uartviewmodel.cpp
+        SOURCES uart_viewmodel.h uart_viewmodel.cpp
         QML_FILES MenuBarComponent.qml
         QML_FILES Game.qml
         QML_FILES CaroGameMode.qml
         QML_FILES CaroGame.qml
         QML_FILES CaroGameMain.qml
-        SOURCES caroviewmodel.h caroviewmodel.cpp
-        SOURCES carowinchecker.h carowinchecker.cpp
+        SOURCES caro_viewmodel.h caro_viewmodel.cpp
+        SOURCES caro_winchecker.h caro_winchecker.cpp
+        SOURCES caro_computer.h caro_computer.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
