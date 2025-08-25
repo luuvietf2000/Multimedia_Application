@@ -35,7 +35,6 @@ Item {
             width_size: rec.width
             height_size: rec.height
             onExitGame: {
-                console.log("exit game event")
                 stack.handleItemChanged(indexMainMenu)
             }
         }
@@ -97,7 +96,6 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    console.log(index + 1)
                     stack.handleItemChanged(index + 1)
                 }
             }

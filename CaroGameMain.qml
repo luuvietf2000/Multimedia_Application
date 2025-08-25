@@ -58,7 +58,6 @@ Item {
                     height: canvas.edge_size
                     anchors.centerIn: parent
                     onClicked: {
-                        console.log("clicked")
                         if(Caro.playerWinner === Caro.NoneTurn && mouseX % canvas.edge_size !== 0 && mouseY % canvas.edge_size){
                             var x = Math.floor(mouseX / getCellSize(canvas.edge_size))
                             var y = Math.floor(mouseY / getCellSize(canvas.edge_size))

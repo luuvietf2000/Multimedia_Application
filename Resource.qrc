@@ -66,5 +66,6 @@
         <file>image/alphabet.png</file>
         <file>image/vs.png</file>
         <file>image/letter-o.png</file>
+        <file>Caro.txt</file>
     </qresource>
 </RCC>

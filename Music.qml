@@ -21,21 +21,16 @@ Item {
             item.object = info
         }
         function onMediaStateChanged(){
-            console.log("state" + media.mediaStatus)
             if(Playlist.mediaState === true){
                 media.setPosition(0)
                 media.play()
-                console.log("playing")
             }
             else{
                 media.pause()
-                console.log("pause")
             }
         }
         function onSetPositionMediaPlay(pos){
-            //media.pause()
             media.setPosition(pos * 1000)
-            //media.play()
         }
     }
     MediaPlayer{

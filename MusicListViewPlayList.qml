@@ -19,7 +19,6 @@ Item {
         anchors.centerIn: parent
         width: width_size - 10
         height: listview.implicitHeight
-        //anchors.centerIn: parent
         color: "white"
         radius: 10
         ListView{

@@ -117,7 +117,6 @@ Item {
                 handleSelectionItemMap(model[0].address, model[0].location, position)
             }
             onSourceErrorChanged: ()=>{
-                console.log(sourceError)
                 active = false
             }
         }
