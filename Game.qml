@@ -34,9 +34,5 @@ Item {
             name: "Caro"
             path: "qrc:/image/caro.png"
         }
-        ListElement{
-            name: "test"
-            path: "qrc:/image/caro.png"
-        }
     }
 }

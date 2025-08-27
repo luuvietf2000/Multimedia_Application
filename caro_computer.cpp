@@ -59,9 +59,7 @@ point CaroComputer::requestComputerMove(const int &value)
                     point _point = *it;
                     int x = _point.x + range * dx[i];
                     int y = _point.y + range * dy[i];
-                    qDebug() << "current" << _point.x << _point.y;
                     if(point_valid(x, y) && ((*boardPointer)[x][y] == CaroViewModel::NotExist) && !visit_map[x][y]){
-                        qDebug() << x << y;
                         visit_map[x][y] = true;
                         (*boardPointer)[x][y] = value;
                         int score = caculatorScore(x, y);
@@ -119,24 +117,19 @@ int CaroComputer::convertListToScore(QList<char> &list, QHash<QString, int> &map
 {
     int score = 0;
     int slow = 0;
-    QHash<QString, int> score_map;
-    QString key_index = "";
     QString key = "";
     for(int fast = 0; fast < list.size(); fast++){
-        addCharForFunctionConvertListToScore(list, fast, key_index, key);
+        addCharForFunctionConvertListToScore(list, fast, key);
         int loop = key.size() - count;
         for(int i = 0; i <= loop; i++){
             bool isWinner = false;
             if(key.size() == count && fast < index + count && slow > index - count  || key.size() != count)
-                isWinner = checkComputerWinner(key, key_index, score_map, map);
+                isWinner = checkComputerWinner(key, score, map);
             if(isWinner)
                 return winner;
-            removeCharForFunctionConvertListToScore(list, slow, key_index, key);
+            removeCharForFunctionConvertListToScore(list, key, slow);
         }
     }
-    for(auto it = score_map.begin(); it != score_map.end(); it++)
-        score += it.value();
-
     return score;
 }
 
@@ -168,6 +161,8 @@ int CaroComputer::caculatorScore(int &x, int &y)
         int index = 0;
         QList list = extractParent(x, y, index, i);
         int score_attack = convertListToScore(list, map_attackScore, index);
+        if(score_attack == winner)
+            return winner;
         int score_defendMin = convertListToScore(list, map_defendScore, index);
         list[index] = charRole[rival];
         int score_defendMax = convertListToScore(list, map_defendScore, index);
@@ -182,32 +177,26 @@ int CaroComputer::max(int &one, int &two)
     return one > two ? one : two;
 }
 
-void CaroComputer::removeCharForFunctionConvertListToScore(QList<char> &list, int &slow, QString &key_index, QString &key)
+void CaroComputer::removeCharForFunctionConvertListToScore(QList<char> &list, QString &key, int &index)
 {
     if(key.size() > 5){
         key.removeFirst();
-        if(list[slow] == charRole[unknown])
-            key_index.removeFirst();
-        slow++;
+        index++;
     }
 }
 
-void CaroComputer::addCharForFunctionConvertListToScore(QList<char> &list, int &index, QString &key_index, QString &key)
+void CaroComputer::addCharForFunctionConvertListToScore(QList<char> &list, int &index, QString &key)
 {
-    if(list[index] == charRole[unknown])
-        key_index += QString::number(index);
     key += QString(list[index]);
 }
 
-bool CaroComputer::checkComputerWinner(QString &key, QString &key_index, QHash<QString, int> &score_map, QHash<QString, int> &map)
+bool CaroComputer::checkComputerWinner(QString &key, int &max_score, QHash<QString, int> &map)
 {
     if(map.contains(key)){
         int _score = map[key];
         if(_score == winner)
             return true;
-        if(score_map.contains(key_index))
-            _score = max(score_map[key_index], _score);
-        score_map[key_index] = _score;
+        max_score = max(max_score, _score);
     }
     return false;
 }

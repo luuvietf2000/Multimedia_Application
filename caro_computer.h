@@ -45,9 +45,9 @@ private:
     bool point_valid(const int &x, const int &y);
     int caculatorScore(int &x, int &y);
     int max(int &one, int &two);
-    void addCharForFunctionConvertListToScore(QList<char> &list, int &index, QString &key_index, QString &key);
-    bool checkComputerWinner(QString &key, QString &key_index, QHash<QString, int> &score_map, QHash<QString, int> &map);
-    void removeCharForFunctionConvertListToScore(QList<char> &list, int &slow, QString &key_index, QString &key);
+    void addCharForFunctionConvertListToScore(QList<char> &list, int &index, QString &key);
+    bool checkComputerWinner(QString &key, int &max_score, QHash<QString, int> &map);
+    void removeCharForFunctionConvertListToScore(QList<char> &list, QString &key, int &index);
 };
 
 #endif // CARO_COMPUTER_H
