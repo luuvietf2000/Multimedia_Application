@@ -6,6 +6,9 @@
 #include <QVariantList>
 #include <QVector>
 #include "caro_winchecker.h"
+#include "caro_computer.h"
+
+class CaroComputer;
 
 class CaroViewModel : public QObject
 {
@@ -43,6 +46,7 @@ public:
     Q_INVOKABLE void requestRetry();
 
     explicit CaroViewModel(QObject *parent = nullptr);
+    ~CaroViewModel();
     QVariantList board() const;
 
     int maxLine() const;
@@ -63,6 +67,7 @@ public:
     int playerWinner() const;
     void setPlayerWinner(int newPlayerWinner);
 
+    void requestComputerAction();
 signals:
     void boardChanged();
     void maxLineChanged();
@@ -75,6 +80,7 @@ signals:
     void playerWinnerChanged();
 
 private:
+    inline static QString name_computer = "Computer";
     void setWinner(int &_turn, point &start, point &end);
     CaroWinChecker check;
     int getPixel();
@@ -87,6 +93,7 @@ private:
     QVariant createInfoPlayer(const int &player, const bool &isComputer);
     QVariantList m_pointLineWinner;
     int m_playerWinner;
+    CaroComputer *computer;
 };
 
 #endif // CARO_VIEWMODEL_H

@@ -375,7 +375,7 @@ void ModelPlayList::requestLocalPlaylist()
         newItem.resource = "qrc:/image/zingmp3_big.png";
         for(int i = 0; i < list.count(); i++){
             int index = list[i].lastIndexOf(".");
-            QString name = list[i].remove(index, list[i].count() - index);
+            QString name = list[i].remove(index, list[i].size() - index);
             newItem.song = newItem.id = name;
             newItem.author = "Not yet available";
             newItem.streamingStatus = 1;

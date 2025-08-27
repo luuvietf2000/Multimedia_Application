@@ -4,27 +4,33 @@
 CaroViewModel::CaroViewModel(QObject *parent)
     : QObject{parent}
 {
+    computer = new CaroComputer();
     setMaxLine(21);
     setBoardDefault();
     m_turn = turnOne;
     setPlayerWinner(NoneTurn);
     m_modeGame = NoneMode;
+    computer->setBoard(m_board);
+}
+
+CaroViewModel::~CaroViewModel()
+{
+    delete computer;
 }
 
 void CaroViewModel::setPixelBoard(const int &x, const int &y)
 {
-    if(m_board[x][y] != NotExist)
-        return;
-    int current_turn = turn();
     int value = getPixel();
     m_board[x][y] = value;
-    point start, end;
     if(m_modeGame == playerVSComputer)
-        qDebug() << "handle";
+        computer->setPixel(x, y);
+    point start, end;
     bool isWin = check.setPixel(x, y, value, start, end);
     if(isWin)
-        setWinner(current_turn, start, end);
+        setWinner(m_turn, start, end);
+    setTurn(!m_turn);
     emit boardChanged();
+    requestComputerAction();
 }
 
 QVariantList CaroViewModel::board() const
@@ -50,6 +56,7 @@ void CaroViewModel::setMaxLine(int newMaxLine)
     if (m_maxLine == newMaxLine)
         return;
     m_maxLine = newMaxLine;
+    computer->setNumbleCell(m_maxLine);
     emit maxLineChanged();
 }
 
@@ -73,6 +80,8 @@ void CaroViewModel::requestRetry()
     setPlayerWinner(NoneTurn);
     setBoardDefault();
     check.createBoard();
+    computer->requestRetry();
+    requestComputerAction();
 }
 
 QVariantList CaroViewModel::setInfoPlayer()
@@ -110,7 +119,6 @@ QVariant CaroViewModel::createInfoPlayer(const int &player, const bool &isComput
 {
     QVariantMap map;
     QString name_default = "Player " + QString::number(player);
-    QString name_computer = "Computer";
     map["name"] = isComputer ? name_computer : name_default;
     map["source"] = isComputer ? "qrc:/image/bot.png" : "qrc:/image/user.png";
     QVariant variant(map);
@@ -141,6 +149,7 @@ void CaroViewModel::setModeGame(int newModeGame)
         return;
     m_modeGame = newModeGame;
     setPlayer(setInfoPlayer());
+    requestComputerAction();
     emit modeGameChanged();
 }
 
@@ -160,7 +169,6 @@ void CaroViewModel::setPlayer(const QVariantList &newPlayer)
 int CaroViewModel::getPixel()
 {
     int value = m_turn == turnOne ? X : O;
-    setTurn(m_turn == turnOne ? turnTwo : turnOne);
     return value;
 }
 
@@ -188,6 +196,14 @@ void CaroViewModel::setPlayerWinner(int newPlayerWinner)
         return;
     m_playerWinner = newPlayerWinner;
     emit playerWinnerChanged();
+}
+
+void CaroViewModel::requestComputerAction()
+{
+    if(m_modeGame == playerVsPlayer || m_player[m_turn].toMap()["name"] != name_computer)
+        return;
+    point _point = computer->requestComputerMove(m_turn == turnOne ? X : O);
+    setPixelBoard(_point.x, _point.y);
 }
 
 void CaroViewModel::setWinner(int &_turn, point &start, point &end)

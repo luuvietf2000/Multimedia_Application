@@ -32,12 +32,6 @@ int main(int argc, char *argv[])
     CaroViewModel *caroViewModel = new CaroViewModel();
     qmlRegisterSingletonInstance("com.resource.caro", 1, 0, "Caro", caroViewModel);
 
-    CaroComputer computer;
-    QList<char> list = { '*', '*', '*', '.', '*', '*', '*', '.', '.', '.'};
-    qDebug() << computer.convertListToScore(list, computer.map_attackScore);
-    list = { '*', '*', '*', '.', '~', '*', '*', '.', '.', '.'};
-    qDebug() << computer.convertListToScore(list, computer.map_defendScore);
-
     QObject::connect(
         &engine,
         &QQmlApplicationEngine::objectCreationFailed,
