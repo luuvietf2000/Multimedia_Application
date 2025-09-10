@@ -2,13 +2,12 @@
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
 #include <QWindow>
-#include "model_playlist.h"
-#include "parameter.h"
-#include "model_map.h"
-#include "api_osmmap.h"
-#include "uart_viewmodel.h"
-#include "caro_viewmodel.h"
-#include "caro_computer.h"
+#include "ViewModel/PlaylistViewModel/model_playlist.h"
+#include "ViewModel/ParameterViewModel/parameter.h"
+#include "ViewModel/MapViewModel/model_map.h"
+#include "ViewModel/UartViewModel/uart_viewmodel.h"
+#include "ViewModel/CaroViewModel/caro_viewmodel.h"
+
 
 int main(int argc, char *argv[])
 {

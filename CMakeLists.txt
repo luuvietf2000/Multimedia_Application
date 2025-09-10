@@ -19,51 +19,20 @@ qt_add_executable(appDisplay_Application
 qt_add_qml_module(appDisplay_Application
     URI Display_Application
     VERSION 1.0
-    QML_FILES
-        Main.qml
-        QML_FILES ControlBar.qml
-        RESOURCES Resource.qrc
-        QML_FILES ButtonStyle.qml
-        QML_FILES NavigationBar.qml
-        QML_FILES Music.qml
-        QML_FILES Remote.qml
-        QML_FILES Setting.qml
-        QML_FILES Live.qml
-        QML_FILES MusicContent.qml
-        QML_FILES MusicControl.qml
-        QML_FILES MusicControlBar.qml
-        SOURCES API_ZingMp3.h API_ZingMp3.cpp
-        QML_FILES SliderControlMusic.qml
-        QML_FILES PlayListMusic.qml
-        QML_FILES TitleItem.qml
-        QML_FILES StackViewStyle.qml
-        QML_FILES ZingMp3Home.qml
-        SOURCES model_playlist.h model_playlist.cpp
-        QML_FILES ImageOvalStyle.qml
-        QML_FILES MusicListViewPlayList.qml
-        QML_FILES PopupWarring.qml
-        SOURCES parameter.h parameter.cpp
-        QML_FILES CurrentSongItem.qml
-        QML_FILES MapComponent.qml
-        QML_FILES SearchMapComponent.qml
-        SOURCES api_osmmap.h api_osmmap.cpp
-        SOURCES model_map.h model_map.cpp
-        QML_FILES MapItem.qml
-        QML_FILES RoadDetail.qml
-        QML_FILES TextStyleRoad.qml
-        QML_FILES Home.qml
-        QML_FILES WatchSpeedComponent.qml
-        QML_FILES PowerComponent.qml
-        SOURCES uart.h uart.cpp
-        SOURCES uart_viewmodel.h uart_viewmodel.cpp
-        QML_FILES MenuBarComponent.qml
-        QML_FILES Game.qml
-        QML_FILES CaroGameMode.qml
-        QML_FILES CaroGame.qml
-        QML_FILES CaroGameMain.qml
-        SOURCES caro_viewmodel.h caro_viewmodel.cpp
-        SOURCES caro_winchecker.h caro_winchecker.cpp
-        SOURCES caro_computer.h caro_computer.cpp
+    SOURCES core/CaroGame/caro_computer.cpp core/CaroGame/caro_computer.h   core/CaroGame/caro_winchecker.cpp core/CaroGame/caro_winchecker.h core/Uart/uart.cpp core/Uart/uart.h models/api/api_osmmap.cpp models/api/api_osmmap.h models/api/API_ZingMp3.cpp models/api/API_ZingMp3.h ViewModel/CaroViewModel/caro_viewmodel.cpp ViewModel/CaroViewModel/caro_viewmodel.h ViewModel/MapViewModel/model_map.cpp ViewModel/MapViewModel/model_map.h ViewModel/ParameterViewModel/parameter.cpp ViewModel/ParameterViewModel/parameter.h ViewModel/PlaylistViewModel/model_playlist.cpp ViewModel/PlaylistViewModel/model_playlist.h ViewModel/UartViewModel/uart_viewmodel.cpp ViewModel/UartViewModel/uart_viewmodel.h
+    RESOURCES Resource.qrc
+    QML_FILES qml/component/ButtonStyle.qml qml/component/ImageOvalStyle.qml qml/component/PopupWarring.qml qml/component/TitleItem.qml qml/pages/Game/CaroGame/CaroGame.qml qml/pages/Game/CaroGame/CaroGameMain.qml qml/pages/Game/CaroGame/CaroGameMode.qml qml/pages/Game/Game.qml qml/pages/Live/Live.qml qml/pages/Map/MapComponent.qml qml/pages/Map/MapItem.qml qml/pages/Map/RoadDetail.qml qml/pages/Map/SearchMapComponent.qml qml/pages/Map/TextStyleRoad.qml qml/pages/ParameterOto/Home.qml qml/pages/ParameterOto/PowerComponent.qml qml/pages/ParameterOto/WatchSpeedComponent.qml qml/pages/PlaylistMusic/ContentItemMusic.qml qml/pages/PlaylistMusic/ControlBar.qml qml/pages/PlaylistMusic/CurrentSongItem.qml qml/pages/PlaylistMusic/Main.qml qml/pages/PlaylistMusic/MapComponent.qml qml/pages/PlaylistMusic/MapItem.qml qml/pages/PlaylistMusic/Music.qml qml/pages/PlaylistMusic/MusicContent.qml qml/pages/PlaylistMusic/MusicControl.qml qml/pages/PlaylistMusic/MusicControlBar.qml qml/pages/PlaylistMusic/MusicListViewPlayList.qml qml/pages/PlaylistMusic/PlayListMusic.qml qml/pages/PlaylistMusic/SliderControlMusic.qml qml/pages/PlaylistMusic/ZingMp3Home.qml qml/pages/Remote/Remote.qml qml/pages/Setting/Setting.qml qml/pages/MenuBarComponent.qml qml/pages/NavigationBar.qml qml/pages/StackViewStyle.qml
+)
+
+target_include_directories(appDisplay_Application PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/ViewModel/MapViewModel
+    ${CMAKE_CURRENT_SOURCE_DIR}/core/CaroGame
+    ${CMAKE_CURRENT_SOURCE_DIR}/core/Uart
+    ${CMAKE_CURRENT_SOURCE_DIR}/models/api
+    ${CMAKE_CURRENT_SOURCE_DIR}/ViewModel/CaroViewModel
+    ${CMAKE_CURRENT_SOURCE_DIR}/ViewModel/ParameterViewModel
+    ${CMAKE_CURRENT_SOURCE_DIR}/ViewModel/PlaylistViewModel
+    ${CMAKE_CURRENT_SOURCE_DIR}/ViewModel/UartViewModel
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
