@@ -7,14 +7,14 @@
 - The goal of this project is to demonstrate the integration of modern UI design with system-level programming and external service APIs in a single Qt-based application.
 
 ## Features
-I) A multifunction application developed using Qt, with QML for the graphical user interface and C++ for backend logic, featuring:
-	1) Online music streaming and downloading via the Zing MP3 API.
-	2) Location search and route navigation using OpenStreetMap and OSRM.
-	3) Real-time display of speed and energy metrics through UART communication.
-	4) Gomoku (Caro) game supporting:
-		+ PvP (Player vs Player)
-		+ PvE (Player vs AI) with an algorithm that selects optimal moves.
-		
+
+- **Online music streaming and downloading** via the Zing MP3 API.
+- **Location search and route navigation** using OpenStreetMap and OSRM.
+- **Real-time display of speed and energy metrics** through UART communication.
+- **Gomoku (Caro) game** supporting:
+  - PvP (Player vs Player)
+  - PvE (Player vs AI) with an algorithm that selects optimal moves.
+  
 ## Technologies
 - **Qt Framework** – Cross-platform framework used for application development.
 - **QML** – Declarative language used to design the graphical user interface.
