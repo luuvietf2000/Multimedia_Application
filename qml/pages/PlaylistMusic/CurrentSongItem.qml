@@ -35,7 +35,7 @@ Item {
             width_button: size_image
             height_icon: size_image * 1 / 2
             width_icon: size_image * 1 / 2
-            resource: Playlist.mediaState ? "qrc:/image/play-button-arrowhead.png" : "qrc:/image/pause.png"
+            resource: Playlist.mediaState ? "qrc:/image/pause.png" : "qrc:/image/play-button-arrowhead.png"
             onButton_clicked:  Playlist.mediaState = !Playlist.mediaState
         }
         ButtonStyle{

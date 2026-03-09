@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Effects
 import com.resource.parameter
+
 Window {
     id: window
     width: 720
@@ -13,6 +14,21 @@ Window {
     onWidthChanged:  Parameter.width = width
     color: "Transparent"
 
+    ListModel{
+        id: modelNavigationBar
+        ListElement{
+            resource: "qrc:/image/mp3.png"
+        }
+        ListElement{
+            resource: "qrc:/image/map.png"
+        }
+        ListElement{
+            resource: "qrc:/image/home.png"
+        }
+        ListElement{
+            resource: "qrc:/image/game.png"
+        }
+    }
     Component.onCompleted: function(){
         Parameter.height = height
         Parameter.width = width
@@ -52,7 +68,7 @@ Window {
                     id:stackview
                     width_size:  item.width
                     height_size: item.height
-                    componentList: [music, map, home, game, remote, live, setting]
+                    componentList: [music, map, home, game]
                 }
             }
             NavigationBar{
@@ -60,6 +76,7 @@ Window {
                 Layout.preferredHeight: 60
                 width_navigationBar: parent.width
                 height_navigationBar: 60
+                listmodel: modelNavigationBar
                 Component.onCompleted: {
                     navigation.item_changed.connect(stackview.handleItemChanged)
                 }

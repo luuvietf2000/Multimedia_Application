@@ -17,14 +17,14 @@ Item {
     implicitHeight: listview.implicitHeight + 20
     Rectangle{
         anchors.centerIn: parent
-        width: width_size - 10
+        width: width_size - 20
         height: listview.implicitHeight
         color: "white"
         radius: 10
         ListView{
             id: listview
             interactive: false
-            width: width_size
+            width: width_size - 20
             model: object
             implicitHeight: contentHeight
             clip: true
@@ -73,14 +73,14 @@ Item {
         id: component_delegate
         Item{
             height: header_size + 10
-            width: width_size - 10
+            width: width_size - 20
             Rectangle{
+                anchors.centerIn: parent
                 height: header_size
-                width: width_size - 20
+                width: width_size - 30
                 radius: 10
                 border.width: 0
                 color: mouse.containsMouse ? "#e33dc0eb" : "#f9c8d9"
-                anchors.centerIn: parent
                 RowLayout{
                     anchors.fill: parent
                     TitleItem{

@@ -9,6 +9,7 @@ Item {
     property int spacing_item: 0
     property string color_default: "transparent"
     property string color_highlinght: "#e33dc0eb"
+    property var listmodel
     signal item_changed(int index)
 
     Component{
@@ -44,32 +45,6 @@ Item {
             }
         }
     }
-
-    ListModel{
-        id: listmodel
-        ListElement{
-            resource: "qrc:/image/mp3.png"
-        }
-        ListElement{
-            resource: "qrc:/image/map.png"
-        }
-        ListElement{
-            resource: "qrc:/image/home.png"
-        }
-        ListElement{
-            resource: "qrc:/image/game.png"
-        }
-        ListElement{
-            resource: "qrc:/image/remote.png"
-        }
-        ListElement{
-            resource: "qrc:/image/video-player.png"
-        }
-        ListElement{
-            resource: "qrc:/image/setting.png"
-        }
-    }
-
     function set_index(index){
         if(listview.currentIndex !== index){
             listview.currentIndex = index
